@@ -16,7 +16,7 @@
     "logging": false
   },
   "production": {
-    "use_env_variable" : "dbMe",
+    "use_env_variable" : "dbUrl",
     "dialect": "postgres",
     "logging": false
     
