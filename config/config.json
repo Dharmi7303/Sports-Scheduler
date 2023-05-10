@@ -1,0 +1,24 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "dharmi",
+    "database": "SportsScheduler",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "logging": false
+  },
+  "test": {
+    "username": "postgres",
+    "password": "dharmi",
+    "database": "SportsSchedulerTest",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "logging": false
+  },
+  "production": {
+    "use_env_variable" : "dbMe",
+    "dialect": "postgres",
+    "logging": false
+    
+  }
+}
