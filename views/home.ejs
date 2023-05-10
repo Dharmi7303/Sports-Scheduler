@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Document</title>
+
+  <style>
+    .navup {
+      color: #fff;
+   
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.2s ease;
+  }
+  
+  .navup:hover {
+    background-color: #555;
+    color: #fff;
+  }
+
+  </style>
+</head>
+
+<body class="relative flex flex-col justify-center items-center h-screen bg-gray-200">
+  <nav class="py-4 px-8 bg-purple-500 fixed text-white w-full fixed top-0">
+    <ul class="flex justify-between items-center">
+      <li>
+        <a href="/home" class=" navup font-bold text-lg">Home</a>
+      </li>
+  
+      <li class="relative">
+        <button class=" navup font-bold text-lg" id="options-menu-button">Options</button>
+        <ul class="absolute top-full left-0 bg-white border border-gray-200 p-4 rounded-md shadow-lg z-50 opacity-0 invisible transition-opacity duration-200" id="options-menu">
+          <li><a class="block py-2 text-blue-600 hover:text-blue-800" href="/changepassword">Change Password</a></li>
+          <li><a class="block py-2 text-blue-600 hover:text-blue-800" href="/signout">Sign Out</a></li>
+        </ul>
+      </li>
+      
+    </ul>
+  </nav>
+  <div class="bg-white rounded-lg mt-5000 shadow-lg p-12 w-6/12">
+    <h3 class="text-3xl font-bold mb-4">Hi <%=name%>!</h3>
+    <% if (admin) { %>
+    <a class="block text-blue-600 text-lg mb-2" href="/sport/new">Create a new sport</a>
+    <a class="block text-blue-600 text-lg mb-4" href="/adminreport">View reports</a>
+    <hr class="mb-4">
+    <% } %>
+    <% if (joinedUpcoming.length>0) { %>
+    <h1 class="text-1xl font-bold mb-4">Upcoming Enrolled Session </h1>
+    <ul class="list-none">
+      <% for (var i=0; i<joinedUpcoming.length; i++) { %>
+      <li>
+        <a href="/sessionpage/<%= joinedUpcoming[i].id %>">
+          <div class="flex rounded hover:bg-purple-50 items-center my-4 px-4 py-2">
+            <span class="mr-6">
+              <%= new Date(joinedUpcoming[i].when).toLocaleString('en-GB', {day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit'}) %>
+            </span>
+            <% if (joinedUpcoming[i].count===0){ %>
+            <p class="text-red-500 font-bold">Slot Full</p>
+            <% } else if (joinedUpcoming[i].count===1 ){ %>
+            <p class="text-yellow-500 font-bold">Last Slot</p>
+            <% } else { %>
+            <p class="text-green-500 font-bold">
+              <%= joinedUpcoming[i].count %> slots
+            </p>
+            <% } %>
+            <span class="ml-auto font-semibold ">
+              <%= joinedUpcoming[i].Sport.sportname %>
+            </span>
+          </div>
+        </a>
+      </li>
+      <% } %>
+    </ul>
+    <% } else { %>
+    <h1 class="text-1xl font-bold mb-4">No Sessions Enrolled</h1>
+    <% } %>
+    <% if (sports.length>0) { %>
+    <h1 class="text-1xl font-bold mb-4">Available Sports</h1>
+    <ul class="list-none">
+
+      <% for (var i=0 ;i<sports.length;i++) { %>
+      <li class="my-2">
+        <a href="/sport/<%=sports[i].id%>" class="block text-blue-600 text-lg">
+          <%=sports[i].sportname%>
+        </a>
+      </li>
+      <% } %>
+
+    </ul>
+    <% } else { %>
+    <h1 class="text-2xl font-bold mb-4">No sports available</h1>
+    <% } %>
+  </div>
+  <script>
+    const optionsMenuButton = document.getElementById('options-menu-button');
+    const optionsMenu = document.getElementById('options-menu');
+    
+    optionsMenuButton.addEventListener('mouseover', () => {
+      optionsMenu.classList.remove('invisible');
+      optionsMenu.classList.add('visible');
+      optionsMenu.classList.remove('opacity-0');
+      optionsMenu.classList.add('opacity-100');
+    });
+  
+    optionsMenuButton.addEventListener('mouseout', () => {
+      optionsMenu.classList.remove('visible');
+      optionsMenu.classList.add('invisible');
+      optionsMenu.classList.remove('opacity-100');
+      optionsMenu.classList.add('opacity-0');
+    });
+  
+    optionsMenu.addEventListener('mouseover', () => {
+      optionsMenu.classList.remove('invisible');
+      optionsMenu.classList.add('visible');
+      optionsMenu.classList.remove('opacity-0');
+      optionsMenu.classList.add('opacity-100');
+    });
+  
+    optionsMenu.addEventListener('mouseout', () => {
+      optionsMenu.classList.remove('visible');
+      optionsMenu.classList.add('invisible');
+      optionsMenu.classList.remove('opacity-100');
+      optionsMenu.classList.add('opacity-0');
+    });
+  </script>
+</body>
+
+</html>

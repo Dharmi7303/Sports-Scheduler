@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>New session</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+  <div class="grid grid-cols-6">
+    <div class="col-span-2 col-start-3">
+      <%- include('header.ejs') %>
+
+        <form action="/sportsession/<%=id%>" method="post">
+      
+          <div class="py-3">
+            <label for="email">where will the session happen</label>
+            <input class="border border-gray-300 rounded p-2 w-full text-gray-900" type="text" name="venue" />
+          </div>
+
+          <div class="py-3">
+            <label for="when">when (please enter time only HH:30 or HH:00 only) </label>
+            <input class="border border-gray-300 rounded p-2 w-full text-gray-900" type="datetime-local" step="1800"
+              name="when" onfocus="setAllowedMinutes(this)" min="${new Date().toISOString().slice(0, 16)}" />
+          </div>
+          
+
+          <div class="py-3">
+            <label for="dt">players you would like to add in the session</label>
+            <input class="border border-gray-300 rounded p-2 w-full text-gray-900" type="text" name="players" />
+          </div>
+
+          <div class="py-3">
+            <label for="requiredteammembers">How many more players do you need</label>
+            <input class="border border-gray-300 rounded p-2 w-full text-gray-900" type="number"
+              name="requiredteammembers" max="100" />
+          </div>
+
+          <div class="py-3">
+            <button class="text-green-600 rounded text-white bg-green-600 hover:bg-green-800 font-medium px-5 py-2"
+              type="submit">
+              Submit
+            </button>
+          </div>
+        </form>
+        <% if(messages && messages.error && messages.error.length> 0) { %>
+          <% for(var i=0; i<messages.error.length; i++) { %>
+            <li  class="text-red-500" >
+              <%= messages.error[i] %>
+            </li>
+            <% } %>
+              <% } %>
+    </div>
+  </div>
+  <script>
+    function setAllowedMinutes(input) {
+      const date = new Date(input.value);
+      const minutes = date.getMinutes();
+      const minuteOptions = input.querySelectorAll('option');
+      for (const option of minuteOptions) {
+        const minute = parseInt(option.value, 10);
+        option.disabled = (minute !== 0 && minute !== 30);
+      }
+    }
+  </script>
+</body>
+
+</html>

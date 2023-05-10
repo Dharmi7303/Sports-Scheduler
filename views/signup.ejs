@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+
+    <title>SignUp | Sports Scheduler</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 flex items-center justify-center h-screen">
+    <div class="bg-white rounded-lg shadow-md w-full max-w-md p-8">
+      <% include('header.ejs') %>
+      <h6 class="text-xl font-medium mb-4">SignUp as a new User</h6>
+      <form action="/users" method="post">
+        
+
+        <div class="mb-4">
+          <label for="name" class="block text-gray-700 font-medium mb-2">Name</label>
+          <input
+            class="border border-gray-300 text-gray-900 rounded p-2 w-full"
+            type="text"
+            name="name"
+          />
+        </div>
+
+        <div class="mb-4">
+          <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
+          <input
+            class="border border-gray-300 rounded p-2 w-full text-gray-900"
+            type="email"
+            name="email"
+          />
+        </div>
+
+        <div class="mb-4">
+          <label for="password" class="block text-gray-700 font-medium mb-2">Password</label>
+          <input
+            class="border border-gray-300 rounded p-2 w-full text-gray-900"
+            type="password"
+            name="password"
+          />
+        </div>
+
+        <div class="flex justify-center items-center mt-6">
+          <button
+            class="text-white bg-blue-500 hover:bg-blue-600 rounded-md px-4 py-2 font-medium"
+            type="submit"
+          >
+            Sign up
+          </button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

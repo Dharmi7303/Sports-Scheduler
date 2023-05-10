@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ 
+  <title>Login | Sports Scheduler</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="flex justify-center items-center h-screen bg-gray-100">
+  <div class="bg-white p-8 rounded-lg shadow-md">
+    <%- include('header.ejs') %>
+    <h1 class="text-3xl font-bold text-gray-800 text-center py-4">Login to your account</h1>
+    <form action="/session" method="post">
+      
+
+      <div class="py-3">
+        <label class="block font-medium text-gray-700" for="email">Email</label>
+        <input class="border border-gray-300 rounded p-2 w-full text-gray-900" type="email" name="email" required />
+      </div>
+      <div class="py-3">
+        <label class="block font-medium text-gray-700" for="password">Password</label>
+        <input class="border border-gray-300 rounded p-2 w-full text-gray-900" type="password" name="password" required />
+      </div>
+
+      <div class="py-3">
+        <button class="text-white rounded bg-green-600 hover:bg-green-800 font-medium px-5 py-2" type="submit">
+          Sign in
+        </button>
+      </div>
+    </form>
+    <% if(messages && messages.error && messages.error.length> 0) { %>
+    <ul class="list-disc pl-8">
+      <% for(var i=0; i<messages.error.length; i++) { %>
+      <li class="text-red-500">
+        <%= messages.error[i] %>
+      </li>
+      <% } %>
+    </ul>
+    <% } %>
+  </div>
+
+</body>
+
+</html>

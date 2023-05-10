@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New session</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body>
+    <div class="grid grid-cols-6 h-screen">
+      <div class="col-span-2 col-start-3 flex flex-col justify-center items-center">
+        <% include('header.ejs') %>
+    
+        <form action="/editsportsession/<%=id%>" method="POST" class="py-4">
+ 
+          <div class="py-2">
+            <label for="email" class="text-gray-700 font-bold block pb-2">Where will the session happen</label>
+            <input
+              value="<%=venue%>"
+              class="border border-gray-300 rounded p-2 w-full text-gray-900"
+              type="text"
+              name="venue"
+            />
+          </div>
+    
+          <div class="py-2">
+            <label for="when" class="text-gray-700 font-bold block pb-2">When (please enter time only HH:30 or HH:00 only)</label>
+            <input
+              class="border border-gray-300 rounded p-2 w-full text-gray-900"
+              type="datetime-local"
+              step="1800"
+              name="when"
+              value="<%= (when) %>"
+              onfocus="setAllowedMinutes(this)"
+              min="${new Date().toISOString().slice(0, 16)}"
+            />
+          </div>
+    
+          <div class="py-2">
+            <label for="requiredteammembers" class="text-gray-700 font-bold block pb-2">How many more players do you need more</label>
+            <input
+              class="border border-gray-300 rounded p-2 w-full text-gray-900"
+              type="number"
+              name="requiredteammembers"
+              value="<%=count%>"
+              max="100"
+            />
+          </div>
+    
+          <div class="py-2">
+            <button
+              class="text-green-600 rounded text-white bg-green-600 hover:bg-green-800 font-medium px-5 py-2"
+              type="submit"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
+    
+        <% if(messages && messages.error && messages.error.length> 0) { %>
+        <ul class="list-disc list-inside text-red-500">
+          <% for(var i=0; i<messages.error.length; i++) { %>
+          <li><%= messages.error[i] %></li>
+          <% } %>
+        </ul>
+        <% } %>
+      </div>
+    </div>
+    
+    
+    <script>
+      function setAllowedMinutes(input) {
+        const date = new Date(input.value);
+        const minutes = date.getMinutes();
+        const minuteOptions = input.querySelectorAll("option");
+        for (const option of minuteOptions) {
+          const minute = parseInt(option.value, 10);
+          option.disabled = minute !== 0 && minute !== 30;
+        }
+      }
+    </script>
+  </body>
+</html>
